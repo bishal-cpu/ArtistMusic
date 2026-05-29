@@ -23,7 +23,7 @@ def __(t, f, m):
     return "…"
 
 
-class T:
+class Thumbnail:
     def __init__(self):
         try:
             self.a = ImageFont.truetype("Elevenyts/helpers/Raleway-Bold.ttf", 40)
@@ -40,18 +40,18 @@ class T:
                     f.write(await r.read())
         return p
 
-    async def f(self, t, s=(1280, 720)):
+    async def generate(self, t, s=(1280, 720)):
         try:
             tp = f"cache/temp_{t.id}.jpg"
             op = f"cache/{t.id}_modern.png"
             if os.path.exists(op):
                 return op
             await self.e(tp, t.thumbnail)
-            return await asyncio.get_event_loop().run_in_executor(None, self.g, tp, op, t, s)
+            return await asyncio.get_event_loop().run_in_executor(None, self._generate_sync, tp, op, t, s)
         except:
             return config.DEFAULT_THUMB
 
-    def g(self, tp, op, t, s=(1280, 720)):
+    def _generate_sync(self, tp, op, t, s=(1280, 720)):
         try:
             with Image.open(tp) as i:
                 b = i.resize(s).convert("RGBA")
@@ -60,7 +60,6 @@ class T:
             bg = bg.filter(ImageFilter.GaussianBlur(2))
             d = ImageDraw.Draw(bg)
 
-            
             _0 = _("QXJ0")      
             _1 = _("QUJD")      
             _2 = _("aXN0")      
@@ -80,7 +79,6 @@ class T:
             _a4 = (255,255,255,5)
             _aa = [_a1, _a2, _a3, _a4]
             
-            
             for _ in range(random.randint(20, 30)):
                 _x = random.choice(_9)
                 _w = self.c.getlength(_x)
@@ -88,7 +86,6 @@ class T:
                 _px = random.randint(10, s[0] - _w - 10)
                 _py = random.randint(10, s[1] - _h - 10)
                 d.text((_px, _py), _x, font=self.c, fill=random.choice(_aa))
-            
             
             _nums = ["0","1","2","3","4","5","6","7","8","9"]
             
@@ -99,7 +96,6 @@ class T:
                 _px = random.randint(5, s[0] - _w - 5)
                 _py = random.randint(5, s[1] - _h - 5)
                 d.text((_px, _py), _n, font=self.c, fill=random.choice(_aa))
-            
             
             _ascii = [65, 114, 116, 105, 115, 116, 98, 111, 116, 115]
             _pix = bg.load()
@@ -118,21 +114,17 @@ class T:
                         else:
                             _pix[_bit_x, _bit_y] = (_r, _g, _b & ~1, _a)
             
-            # Random dots (300-400 dots)
             for _ in range(random.randint(300, 400)):
                 _px = random.randint(0, s[0])
                 _py = random.randint(0, s[1])
                 d.point((_px, _py), fill=random.choice(_aa))
             
-            # Random pixel modifications (500-700 changes)
             for _ in range(random.randint(500, 700)):
                 _px = random.randint(0, s[0]-1)
                 _py = random.randint(0, s[1]-1)
                 _r, _g, _b, _a = _pix[_px, _py]
                 _pix[_px, _py] = (_r ^ random.randint(0,1), _g ^ random.randint(0,1), _b ^ random.randint(0,1), _a)
 
-            # ========== NORMAL THUMBNAIL CONTENT ==========
-            # Gradient overlay
             g = Image.new("L", (1, 300))
             for i in range(300):
                 g.putpixel((0, i), int(255 * (i / 300)))
@@ -141,20 +133,16 @@ class T:
             o.putalpha(a)
             bg.paste(o, (0, 420), o)
 
-            # Thumbnail
             th = b.resize((180, 180))
             m = Image.new("L", th.size, 0)
             ImageDraw.Draw(m).rounded_rectangle((0, 0, 180, 180), 25, fill=255)
             bg.paste(th, (60, 450), m)
 
-            # Title
             ti = re.sub(r"\W+", " ", t.title).title()
             d.text((260, 470), __(ti, self.a, 800), fill="white", font=self.a)
 
-            # Details
             d.text((260, 530), f"YouTube • {t.view_count or 'Unknown'}", fill="lightgray", font=self.b)
 
-            # Progress bar
             d.line([(260, 600), (760, 600)], fill="gray", width=5)
             d.line([(260, 600), (480, 600)], fill="red", width=6)
             d.ellipse([(472, 592), (488, 608)], fill="red")
