@@ -76,14 +76,17 @@ class Config:
         self.VIDEO_MAX_HEIGHT: int = self._parse_video_height()
 
         # ============ ARTISTBOTS API CONFIGURATION ============
-        # ArtistBots YouTube download API URL
+        # ArtistBots YouTube download API URL @Artistapibot
         self.ARTISTBOTS_API_URL: str = getenv("ARTISTBOTS_API_URL", "")
         
         # ArtistBots API Key for authentication @Artistapibot
         self.ARTISTBOTS_KEY: str = getenv("ARTISTBOTS_KEY", "")
         
-        # Enable/disable API fallback when cookies fail
-        self.ENABLE_API_FALLBACK: bool = self._str_to_bool(getenv("ENABLE_API_FALLBACK", "True"))
+        # Enable/disable API (if False, only cookies will be used)
+        self.ENABLE_API: bool = self._str_to_bool(getenv("ENABLE_API", "True"))
+        
+        # Enable/disable cookies fallback (if API fails)
+        self.ENABLE_COOKIES_FALLBACK: bool = self._str_to_bool(getenv("ENABLE_COOKIES_FALLBACK", "True"))
         
         # API timeout in seconds for downloads
         self.API_TIMEOUT: int = int(getenv("API_TIMEOUT", "60"))
