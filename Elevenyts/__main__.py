@@ -80,6 +80,10 @@ async def main():
 
         # Step 3: Connect to MongoDB database
         await db.connect()
+
+        # Step 3.1: Download YouTube cookies if COOKIE_URL is configured
+        if config.COOKIES_URL:
+            await yt.save_cookies(config.COOKIES_URL)
         
         # Step 4: Start the main bot client
         await app.boot()

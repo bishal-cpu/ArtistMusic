@@ -417,10 +417,12 @@ class YouTube:
                     "postprocessors": [],
                 }
 
-            ydl_opts_cookie = {
-                **ydl_opts,
-                "cookiefile": cookie,
-            }
+            ydl_opts_cookie = {**ydl_opts}
+            if cookie:
+                ydl_opts_cookie["cookiefile"] = cookie
+                logger.info(f"🍪 [COOKIES FALLBACK] Downloading {video_id} with cookies...")
+            else:
+                logger.info(f"🍪 [COOKIES FALLBACK] No cookies found, downloading {video_id} without cookies...")
 
             def _download(ydl_runtime_opts):
                 ydl_instance = None
@@ -453,7 +455,6 @@ class YouTube:
                         except Exception:
                             pass
 
-            logger.info(f"🍪 [COOKIES FALLBACK] Downloading {video_id} with cookies...")
             result = await asyncio.to_thread(_download, ydl_opts_cookie)
             
             if result:
