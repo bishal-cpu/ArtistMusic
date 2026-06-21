@@ -123,8 +123,12 @@ class Config:
         if missing:
             raise SystemExit(f"Missing required env vars: {', '.join(missing)}")
         
-        if self.ENABLE_API and not self.ARTISTBOTS_KEY:
-            print("Warning: ENABLE_API is True but ARTISTBOTS_KEY is not set")
+        if self.ENABLE_API and (not self.ARTISTBOTS_API_URL or not self.ARTISTBOTS_KEY):
+            print(
+                "Warning: ENABLE_API is True but ARTISTBOTS_API_URL or ARTISTBOTS_KEY is not set. "
+                "API downloads will be disabled and cookies fallback will be used instead."
+            )
+            self.ENABLE_API = False
 
 
 config = Config()

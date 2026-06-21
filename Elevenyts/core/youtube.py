@@ -71,6 +71,12 @@ class YouTube:
                 logger.info(f"🔑 API Key: {masked_key}")
             else:
                 logger.warning("⚠️ No API Key configured!")
+            if not self.api_url or not self.artistbots_key:
+                logger.warning(
+                    "⚠️ ArtistBots API is enabled, but ARTISTBOTS_API_URL or ARTISTBOTS_KEY is missing. "
+                    "Disabling API download and using cookies fallback if available."
+                )
+                self.enable_api = False
         logger.info(f"🍪 Cookies Fallback: {'ENABLED' if self.enable_cookies_fallback else 'DISABLED'}")
         logger.info("=" * 50)
 
@@ -195,8 +201,8 @@ class YouTube:
             logger.debug("API is disabled in config")
             return None
 
-        if not self.api_url:
-            logger.debug("ARTISTBOTS_API_URL not configured")
+        if not self.api_url or not self.artistbots_key:
+            logger.debug("ArtistBots API config incomplete: API URL or API key missing")
             return None
 
         # Extract video ID from URL
@@ -387,6 +393,12 @@ class YouTube:
                 "fragment_retries": 2,
                 "extractor_retries": 5,
                 "sleep_interval_requests": 1,
+                "http_headers": {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+                    "Accept-Language": "en-US,en;q=0.9",
+                    "Accept": "*/*",
+                    "Referer": "https://www.youtube.com/",
+                },
                 "extractor_args": {"youtube": {"player_client": ["android", "web"]}},
             }
 
