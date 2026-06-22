@@ -68,10 +68,10 @@ class Config:
         self.COOKIES_URL: List[str] = self._parse_cookies()
 
         # Images
-        self.DEFAULT_THUMB: str = getenv("DEFAULT_THUMB", "https://kommodo.ai/i/7yDadn9iHuKdRKPhPLIY")
-        self.PING_IMG: str = getenv("PING_IMG", "https://kommodo.ai/i/7yDadn9iHuKdRKPhPLIY")
-        self.START_IMG: str = getenv("START_IMG", "https://kommodo.ai/i/7yDadn9iHuKdRKPhPLIY")
-        self.RADIO_IMG: str = getenv("RADIO_IMG", "https://kommodo.ai/i/7yDadn9iHuKdRKPhPLIY")
+        self.DEFAULT_THUMB: str = getenv("DEFAULT_THUMB", "https://i.ibb.co/rRd5Hp8w/x.jpg")
+        self.PING_IMG: str = getenv("PING_IMG", "https://i.ibb.co/rRd5Hp8w/x.jpg")
+        self.START_IMG: str = getenv("START_IMG", "https://i.ibb.co/rRd5Hp8w/x.jpg")
+        self.RADIO_IMG: str = getenv("RADIO_IMG", "https://i.ibb.co/rRd5Hp8w/x.jpg")
 
         # Moderation
         self.EXCLUDED_USERNAMES: List[str] = getenv("EXCLUDED_USERNAMES", "").split()
