@@ -9,9 +9,8 @@ import asyncio
 # Example: from main import db
 # -------------------------------------------------
 from Elevenyts.core.mongo import MongoDB
-db = MongoDB()
 
-afk_col = db["afk"]
+afk_col = MongoDB["afk"]
 LAST_SEEN = {}
 AFK_COOLDOWN = {}
 
