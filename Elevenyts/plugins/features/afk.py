@@ -8,7 +8,8 @@ import asyncio
 # IMPORTANT: change "bot" to your main file name
 # Example: from main import db
 # -------------------------------------------------
-from Elevenyts.core.mongo import db
+from Elevenyts.core.mongo import MongoDB
+db = MongoDB()
 
 afk_col = db["afk"]
 LAST_SEEN = {}
