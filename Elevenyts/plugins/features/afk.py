@@ -8,6 +8,7 @@ import asyncio
 # IMPORTANT: change "bot" to your main file name
 # Example: from main import db
 # -------------------------------------------------
+print("AFK PLUGIN LOADED")
 from Elevenyts import db
 
 afk_col = db.db.afk
