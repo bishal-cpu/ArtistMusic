@@ -1,4 +1,5 @@
-from pyrogram import Client, filters
+from pyrogram import filters
+from Elevenyts import app, db
 from datetime import datetime
 import time
 import asyncio
@@ -31,7 +32,7 @@ def format_time(seconds):
 # -------------------------------------------------
 # TRACK USER ACTIVITY
 # -------------------------------------------------
-@Client.on_message(filters.text & ~filters.bot)
+@app.on_message(filters.text & ~filters.bot)
 async def track_activity(client, message):
     if not message.from_user:
         return
@@ -40,7 +41,7 @@ async def track_activity(client, message):
 # -------------------------------------------------
 # SET AFK COMMAND
 # -------------------------------------------------
-@Client.on_message(filters.command("afk"))
+@app.on_message(filters.command("afk") & filters.group)
 async def set_afk(client, message):
     if not message.from_user:
         return
@@ -70,7 +71,7 @@ async def set_afk(client, message):
 # -------------------------------------------------
 # AUTO REMOVE AFK (WHEN USER RETURNS)
 # -------------------------------------------------
-@Client.on_message(filters.text & ~filters.bot)
+@app.on_message(filters.text & ~filters.bot)
 async def remove_afk(client, message):
     if not message.from_user:
         return
@@ -99,7 +100,7 @@ async def remove_afk(client, message):
 # -------------------------------------------------
 # AFK MENTION HANDLER (SMART)
 # -------------------------------------------------
-@Client.on_message(filters.mentioned)
+@app.on_message(filters.mentioned)
 async def afk_mention(client, message):
     if not message.entities:
         return
