@@ -8,7 +8,7 @@ import asyncio
 # IMPORTANT: change "bot" to your main file name
 # Example: from main import db
 # -------------------------------------------------
-from main import db   # 🔥 CHANGE THIS TO YOUR FILE NAME
+from main import db
 
 afk_col = db["afk"]
 LAST_SEEN = {}
